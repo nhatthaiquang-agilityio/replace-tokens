@@ -7,6 +7,9 @@ function getFiles(): string[] {
       required: true,
     }) || "";
   files = files.replace("\\", "\\\\");
+
+  console.log(`Get files:`, files);
+
   if (files.trim().startsWith("[")) {
     return JSON.parse(files);
   }
