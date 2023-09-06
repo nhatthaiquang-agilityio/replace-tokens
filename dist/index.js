@@ -253,6 +253,7 @@ function replaceTokens(tokenPrefix, tokenSuffix, files) {
             matchRegEx = new RegExp("".concat(escapeDelimiter(tokenPrefix), "(.+?)").concat(escapeDelimiter(tokenSuffix)));
             // replace the UNC path(ex: '\\\\hostname\\')
             files.map(function (file) { return file.replace('/\\\\/g', '\\'); });
+            files = ['\\FWTECD-RPIWT1.dfin.local\\d$\\WebApp\\drop\\Web.config'];
             console.log("Files: ", files);
             results = replace.sync({
                 files: files,
