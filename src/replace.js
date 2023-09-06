@@ -44,6 +44,8 @@ function replaceTokens(tokenPrefix, tokenSuffix, files) {
         return __generator(this, function (_a) {
             fromRegEx = new RegExp("".concat(escapeDelimiter(tokenPrefix), "(.+?)").concat(escapeDelimiter(tokenSuffix)), "gm");
             matchRegEx = new RegExp("".concat(escapeDelimiter(tokenPrefix), "(.+?)").concat(escapeDelimiter(tokenSuffix)));
+            // replace the UNC path(ex: '\\\\hostname\\')
+            files.forEach(function (file) { return file.replace('/\\\\/g', '\\'); });
             console.log("Files: ", files);
             results = replace.sync({
                 files: files,

@@ -12,6 +12,10 @@ export async function replaceTokens(
   const matchRegEx = new RegExp(
     `${escapeDelimiter(tokenPrefix)}(.+?)${escapeDelimiter(tokenSuffix)}`
   );
+
+  // replace the UNC path(ex: '\\\\hostname\\')
+  files.forEach(file => file.replace('/\\\\/g', '\\'));
+
   console.log("Files: ", files);
 
   const results = replace.sync({
