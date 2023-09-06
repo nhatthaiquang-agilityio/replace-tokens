@@ -15,12 +15,15 @@ export async function replaceTokens(
 
   const result = await replaceInFile({
     files,
-    allowEmptyPaths: true,
+    countMatches: true,
+    allowEmptyPaths: false,
     from: fromRegEx,
     to: (match: string) => {
       const m = match.match(matchRegEx);
+      console.log("Match: ", m);
       if (m) {
         const tokenName = m[1];
+        console.log("tokenName: ", tokenName);
         return process.env[tokenName] || "";
       }
 

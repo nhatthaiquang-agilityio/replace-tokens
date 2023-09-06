@@ -6,7 +6,6 @@ function getFiles(): string[] {
     core.getInput("files", {
       required: true,
   }) || "";
-
   files = files.replace('/\\/g', '\\\\');
 
   console.log(`Get files:`, files);
