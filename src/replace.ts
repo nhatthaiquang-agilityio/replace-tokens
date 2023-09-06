@@ -13,12 +13,9 @@ export async function replaceTokens(
     `${escapeDelimiter(tokenPrefix)}(.+?)${escapeDelimiter(tokenSuffix)}`
   );
 
-  // replace the UNC path(ex: '\\\\hostname\\')
-  files.map(file => file.replace('/\\\\/g', '\\'));
-  files = ['\\FWTECD-RPIWT1.dfin.local\\d$\\WebApp\\drop\\Web.config'];
   console.log("Files: ", files);
 
-  const results = replace.sync({
+  const results = replace.replaceInFile({
     files,
     countMatches: true,
     allowEmptyPaths: false,
