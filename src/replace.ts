@@ -1,4 +1,4 @@
-import { replaceInFile } from "replace-in-file";
+const replace = require('replace-in-file');
 
 export async function replaceTokens(
   tokenPrefix: string,
@@ -12,8 +12,9 @@ export async function replaceTokens(
   const matchRegEx = new RegExp(
     `${escapeDelimiter(tokenPrefix)}(.+?)${escapeDelimiter(tokenSuffix)}`
   );
+  console.log("Files: ", files);
 
-  const result = await replaceInFile({
+  const results = replace.sync({
     files,
     countMatches: true,
     allowEmptyPaths: false,
@@ -31,7 +32,8 @@ export async function replaceTokens(
     }
   });
 
-  return result.filter(r => r.hasChanged).map(r => r.file);
+  return results.filter((result: { hasChanged: any; }) => result.hasChanged)
+                .map((result: { file: any; }) => result.file);
 }
 
 function escapeDelimiter(delimiter: string): string {

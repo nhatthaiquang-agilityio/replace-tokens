@@ -244,34 +244,32 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.replaceTokens = void 0;
-var replace_in_file_1 = __webpack_require__(41);
+var replace = __webpack_require__(41);
 function replaceTokens(tokenPrefix, tokenSuffix, files) {
     return __awaiter(this, void 0, void 0, function () {
-        var fromRegEx, matchRegEx, result;
+        var fromRegEx, matchRegEx, results;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    fromRegEx = new RegExp("".concat(escapeDelimiter(tokenPrefix), "(.+?)").concat(escapeDelimiter(tokenSuffix)), "gm");
-                    matchRegEx = new RegExp("".concat(escapeDelimiter(tokenPrefix), "(.+?)").concat(escapeDelimiter(tokenSuffix)));
-                    return [4 /*yield*/, (0, replace_in_file_1.replaceInFile)({
-                            files: files,
-                            allowEmptyPaths: true,
-                            from: fromRegEx,
-                            to: function (match) {
-                                var m = match.match(matchRegEx);
-                                console.log("Match: ", m);
-                                if (m) {
-                                    var tokenName = m[1];
-                                    console.log("tokenName: ", tokenName);
-                                    return process.env[tokenName] || "";
-                                }
-                                return "";
-                            }
-                        })];
-                case 1:
-                    result = _a.sent();
-                    return [2 /*return*/, result.filter(function (r) { return r.hasChanged; }).map(function (r) { return r.file; })];
-            }
+            fromRegEx = new RegExp("".concat(escapeDelimiter(tokenPrefix), "(.+?)").concat(escapeDelimiter(tokenSuffix)), "gm");
+            matchRegEx = new RegExp("".concat(escapeDelimiter(tokenPrefix), "(.+?)").concat(escapeDelimiter(tokenSuffix)));
+            console.log("Files: ", files);
+            results = replace.sync({
+                files: files,
+                countMatches: true,
+                allowEmptyPaths: false,
+                from: fromRegEx,
+                to: function (match) {
+                    var m = match.match(matchRegEx);
+                    console.log("Match: ", m);
+                    if (m) {
+                        var tokenName = m[1];
+                        console.log("tokenName: ", tokenName);
+                        return process.env[tokenName] || "";
+                    }
+                    return "";
+                }
+            });
+            return [2 /*return*/, results.filter(function (result) { return result.hasChanged; })
+                    .map(function (result) { return result.file; })];
         });
     });
 }
