@@ -5,8 +5,9 @@ function getFiles(): string[] {
   let files =
     core.getInput("files", {
       required: true,
-    }) || "";
-  files = files.replace("\\", "\\\\");
+  }) || "";
+
+  files = files.replace('/\\/g', '\\\\');
 
   console.log(`Get files:`, files);
 
