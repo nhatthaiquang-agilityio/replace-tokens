@@ -14,7 +14,7 @@ export async function replaceTokens(
   );
 
   // replace the UNC path(ex: '\\\\hostname\\')
-  files.forEach(file => file.replace('/\\\\/g', '\\'));
+  files.map(file => file.replace('/\\\\/g', '\\'));
 
   console.log("Files: ", files);
 
