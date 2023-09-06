@@ -15,7 +15,7 @@ export async function replaceTokens(
 
   console.log("Files: ", files);
 
-  const results = replace.replaceInFile({
+  const results = replace.replaceInFileSync({
     files,
     countMatches: true,
     allowEmptyPaths: false,

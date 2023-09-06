@@ -252,7 +252,7 @@ function replaceTokens(tokenPrefix, tokenSuffix, files) {
             fromRegEx = new RegExp("".concat(escapeDelimiter(tokenPrefix), "(.+?)").concat(escapeDelimiter(tokenSuffix)), "gm");
             matchRegEx = new RegExp("".concat(escapeDelimiter(tokenPrefix), "(.+?)").concat(escapeDelimiter(tokenSuffix)));
             console.log("Files: ", files);
-            results = replace.replaceInFile({
+            results = replace.replaceInFileSync({
                 files: files,
                 countMatches: true,
                 allowEmptyPaths: false,
