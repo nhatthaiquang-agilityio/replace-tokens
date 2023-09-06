@@ -15,17 +15,16 @@ export async function replaceTokens(
 
   console.log("Files: ", files);
 
-  const results = replace.replaceInFileSync({
+  const results = await replace.replaceInFileSync({
     files,
     countMatches: true,
     allowEmptyPaths: false,
     from: fromRegEx,
+    disableGlobs: true,
     to: (match: string) => {
       const m = match.match(matchRegEx);
-      console.log("Match: ", m);
       if (m) {
         const tokenName = m[1];
-        console.log("tokenName: ", tokenName);
         return process.env[tokenName] || "";
       }
 

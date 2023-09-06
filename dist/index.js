@@ -249,27 +249,31 @@ function replaceTokens(tokenPrefix, tokenSuffix, files) {
     return __awaiter(this, void 0, void 0, function () {
         var fromRegEx, matchRegEx, results;
         return __generator(this, function (_a) {
-            fromRegEx = new RegExp("".concat(escapeDelimiter(tokenPrefix), "(.+?)").concat(escapeDelimiter(tokenSuffix)), "gm");
-            matchRegEx = new RegExp("".concat(escapeDelimiter(tokenPrefix), "(.+?)").concat(escapeDelimiter(tokenSuffix)));
-            console.log("Files: ", files);
-            results = replace.replaceInFileSync({
-                files: files,
-                countMatches: true,
-                allowEmptyPaths: false,
-                from: fromRegEx,
-                to: function (match) {
-                    var m = match.match(matchRegEx);
-                    console.log("Match: ", m);
-                    if (m) {
-                        var tokenName = m[1];
-                        console.log("tokenName: ", tokenName);
-                        return process.env[tokenName] || "";
-                    }
-                    return "";
-                }
-            });
-            return [2 /*return*/, results.filter(function (result) { return result.hasChanged; })
-                    .map(function (result) { return result.file; })];
+            switch (_a.label) {
+                case 0:
+                    fromRegEx = new RegExp("".concat(escapeDelimiter(tokenPrefix), "(.+?)").concat(escapeDelimiter(tokenSuffix)), "gm");
+                    matchRegEx = new RegExp("".concat(escapeDelimiter(tokenPrefix), "(.+?)").concat(escapeDelimiter(tokenSuffix)));
+                    console.log("Files: ", files);
+                    return [4 /*yield*/, replace.replaceInFileSync({
+                            files: files,
+                            countMatches: true,
+                            allowEmptyPaths: false,
+                            from: fromRegEx,
+                            disableGlobs: true,
+                            to: function (match) {
+                                var m = match.match(matchRegEx);
+                                if (m) {
+                                    var tokenName = m[1];
+                                    return process.env[tokenName] || "";
+                                }
+                                return "";
+                            }
+                        })];
+                case 1:
+                    results = _a.sent();
+                    return [2 /*return*/, results.filter(function (result) { return result.hasChanged; })
+                            .map(function (result) { return result.file; })];
+            }
         });
     });
 }
